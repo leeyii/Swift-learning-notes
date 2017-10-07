@@ -55,8 +55,8 @@ class EquilateralTriangle : Shape {
         get {
             return sideLength * 3.0
         }
-        set {
-            sideLength = newValue / 3.0
+        set (new) {
+            sideLength = new / 3.0
         }
     }
     
@@ -71,6 +71,32 @@ triangle.perimeter = 9.9
 print(triangle.sideLength)
 
 
+
+
+class TriangleAndSquare {
+    var triangle: EquilateralTriangle {
+        willSet {
+            
+            square.sideLength = newValue.sideLength
+        }
+    }
+    var square: Square {
+        willSet {
+            
+            triangle.sideLength = newValue.sideLength
+        }
+    }
+    
+    init(size: Double, name: String) {
+        square = Square(sideLength: size, name: name)
+        triangle = EquilateralTriangle(sideLength: size, name: name)
+    }
+}
+var triangleAndSquare = TriangleAndSquare(size: 10, name: "another test shape")
+print(triangleAndSquare.square.sideLength)
+print(triangleAndSquare.triangle.sideLength)
+triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
+print(triangleAndSquare.triangle.sideLength)
 
 
 

@@ -280,7 +280,7 @@ print(sortedNumbers)
 	print(square.area())
 	square.simpleDescription()
 
-每一个属性都可由setter和getter方法.
+每一个属性都有setter和getter方法.
 
 	class EquilateralTriangle : Shape {
 	    var sideLength: Double
@@ -308,3 +308,17 @@ print(sortedNumbers)
 	print(triangle.perimeter)
 	triangle.perimeter = 9.9
 	print(triangle.sideLength)
+
+在perimeter属性的setter方法中,newValue代表是新的值, 你也可以显示的指定新值得名字 
+
+		set (new) {
+            sideLength = new / 3.0
+        }
+
+在初始化器中初始化EquilateralTriangle有3步:
+
+1. 给子类中声明的属性赋值
+2. 调用父类初始化方法
+3. 改变在父类中初始化的属性,其他的初始化工作比如调用方法,setter,getter都能在这里完成.
+
+如果你不需要计算属性,但是仍希望在赋值前后做一些操作,可以使用`willSet`和`didSet`.这些代码
