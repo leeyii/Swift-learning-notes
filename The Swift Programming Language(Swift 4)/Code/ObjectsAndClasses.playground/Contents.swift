@@ -98,6 +98,10 @@ print(triangleAndSquare.triangle.sideLength)
 triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
 print(triangleAndSquare.triangle.sideLength)
 
-
-
-
+let optionalSquare: Square? = nil
+var sideLength = optionalSquare?.sideLength
+if let l = sideLength {
+    print(l)
+} else {
+    sideLength = 40
+}

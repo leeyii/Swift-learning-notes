@@ -1,4 +1,4 @@
-##1.Simple Values
+##Simple Values
 
 
 * 使用`let`声明常量, `var`声明变量.
@@ -321,4 +321,32 @@ print(sortedNumbers)
 2. 调用父类初始化方法
 3. 改变在父类中初始化的属性,其他的初始化工作比如调用方法,setter,getter都能在这里完成.
 
-如果你不需要计算属性,但是仍希望在赋值前后做一些操作,可以使用`willSet`和`didSet`.这些代码
+如果你不需要计算属性,但是仍希望在赋值前后做一些操作,可以使用`willSet`和`didSet`.这些代码会在除了构造函数外其他任意时刻当属性值变化是执行.
+
+	class TriangleAndSquare {
+	    var triangle: EquilateralTriangle {
+	        willSet {
+	            square.sideLength = newValue.sideLength
+	        }
+	    }
+	    var square: Square {
+	        willSet {
+	            triangle.sideLength = newValue.sideLength
+	        }
+	    }
+	    init(size: Double, name: String) {
+	        square = Square(sideLength: size, name: name)
+	        triangle = EquilateralTriangle(sideLength: size, name: name)
+	    }
+	}
+	var triangleAndSquare = TriangleAndSquare(size: 10, name: "another test shape")
+	print(triangleAndSquare.square.sideLength)
+	print(triangleAndSquare.triangle.sideLength)
+	triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
+	print(triangleAndSquare.triangle.sideLength)
+
+当使用可选类型时,你可以使用`?`在调用方法,属性和下标前.如果可选类型的值为nil则会忽略`?`后面的代码,整个表达式的值为nil.否则可选类型就会解包.所有在`?`之后的操作都基于解包的值.整个表达式的值为可选类型.
+
+##Enumerations and Structures
+
+使用 `enum` 关键字去创建枚举类型.枚举类型和classes和其他named types一样可以有方法.
