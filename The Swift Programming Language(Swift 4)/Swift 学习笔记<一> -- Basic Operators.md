@@ -66,4 +66,58 @@ swift支持 String 链接
 	var userDefinedColorName: String?   // defaults to nil
 	 
 	var colorNameToUse = userDefinedColorName ?? defaultColorName
+	或者
+	var colorNameToUse = userDefinedColorName != nil ? userDefinedColorName! : defaultColorName
+
+上面两种写法等价
+
+## Range Operators
+
+### Closed Range Operator
+
+`a...b`, 从a到b包含 a 和 b
+
+### Half-Open Range Operator
+
+`a..<b`, 从a到b-1 不包含b
+
+
+### One-Side Ranges
+
+One-Side Ranges 可以指定一个范围从指定位置开始,一直到结束`a...`. 或者从0开始到指定位置`...b`
+
+	let names = ["Anna", "Alex", "Brian", "Jack"]
+	
+	for name in names[2...] {
+	    print(name)
+	}
+	// Brian
+	// Jack
+	 
+	for name in names[...2] {
+	    print(name)
+	}
+	// Anna
+	// Alex
+	// Brian
+
+
+如果你不希望包含最后一个值也可以`..<b`这样写
+
+	for name in names[..<2] {
+	    print(name)
+	}
+	// Anna
+	// Alex
+
+One-Side Ranges 也可以用在其他情况下,除了下标中.
+
+One-Side Ranges也可以用来迭代,但是只能在`a...`情况下使用,但是你需要在循环中写明确定break否则会出现死循环.`...a`不能用于迭代,因为不能确定循环初始位置
+
+
+## 逻辑运算符
+
+没啥好说的
+
+
 
