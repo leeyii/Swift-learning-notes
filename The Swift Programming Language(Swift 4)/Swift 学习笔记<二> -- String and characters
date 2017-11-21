@@ -1,0 +1,74 @@
+# Swift 学习笔记<二> -- String and characters
+
+## 多行字面量
+
+如果需要一个字符串有多行,可以使用多行字面量,使用`"""`三个双引号包裹字符串
+
+	let quotation = """
+	The White Rabbit put on his spectacles.  "Where shall I begin,
+	please your Majesty?" he asked.
+	 
+	"Begin at the beginning," the King said gravely, "and go on
+	till you come to the end; then stop."
+	"""
+
+## String 是值类型
+
+Swift的String是值类型.如果你创建一个新的字符串,当你将这个字符串传递给方法的参数是,字符串会被复制一份.so 你不用担心你自己创建的字符串会被意外的修改.
+
+同时swift 编译器对String做了一定的优化,只有当值类型被修改时,这个值才会被拷贝.
+
+## Working with Characters
+
+你可以直接通过迭代的方式访问字符串中的每一个字符.
+
+	let catCharacters: [Character] = ["C", "a", "t", "!", "🐱"]
+	let catString = String(catCharacters)
+	print(catString)
+	// Prints "Cat!🐱"
+
+字符串也可以通过字符数组的方式创建.
+
+字符串可以直接通过Unicode创建见
+
+	let dollarSign = "\u{24}"        // $,  Unicode scalar U+0024
+	let blackHeart = "\u{2665}"      // ♥,  Unicode scalar U+2665
+	let sparklingHeart = "\u{1F496}" // 💖, Unicode scalar U+1F496
+
+## 链接字符串和字符
+
+String 可以使用`+`运算符链接两个字符串
+
+	let string1 = "hello"
+	let string2 = " there"
+	var welcome = string1 + string2
+	// welcome now equals "hello there"
+
+同时也可以使用`+=`操作符
+
+	var instruction = "look over"
+	instruction += string2
+	// instruction now equals "look over there"
+
+如果想在字符串后面添加字符可以使用`append()`方法
+
+	let exclamationMark: Character = "!"
+	welcome.append(exclamationMark)
+	// welcome now equals "hello there!"
+
+使用`append()`的字符串必须用`var`声明, 不能用`let`声明
+
+## 字符串中间插入值
+
+你可以使用`String interpolation`这种方式创建一个字符串.通过这种方式创建字符串,可以将多个不同的值混合在一起创建一个新的字符串.当你希望在字符串中插入值得时候,可以使用`\()`
+
+	let num = 3
+	let str = "\(num) times 2.5 is \(Double(num) * 2.5)"
+	// 3 times 2.5 is 7.5
+
+
+## Unicode
+
+Unicode 是一种国际标准编码方式
+
+
