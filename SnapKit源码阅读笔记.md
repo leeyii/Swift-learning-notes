@@ -65,3 +65,30 @@
 每个Constraint对象layoutConstraints的个数由`form.attributes.layoutAttributes`的数量决定.
 
 这里的`LayoutConstraint`是`NSLayoutConstraint`的子类.
+
+* Line: 259- 274
+* Description: 约束更新
+* Note:
+		
+        guard let item = self.from.layoutConstraintItem else {
+            print("WARNING: SnapKit failed to get from item from constraint. Activate will be a no-op.")
+            return
+        }
+        if updatingExisting {
+            var existingLayoutConstraints: [LayoutConstraint] = []
+            for constraint in item.constraints {
+                existingLayoutConstraints += constraint.layoutConstraints
+            }
+
+            for layoutConstraint in layoutConstraints {
+                let existingLayoutConstraint = existingLayoutConstraints.first { $0 == layoutConstraint }
+                guard let updateLayoutConstraint = existingLayoutConstraint else {
+                    fatalError("Updated constraint could not find existing matching constraint to update: \(layoutConstraint)")
+                }
+
+                let updateLayoutAttribute = (updateLayoutConstraint.secondAttribute == .notAnAttribute) ? updateLayoutConstraint.firstAttribute : updateLayoutConstraint.secondAttribute
+                updateLayoutConstraint.constant = self.constant.constraintConstantTargetValueFor(layoutAttribute: updateLayoutAttribute)
+            }
+        }
+
+从约束添加的view上找到所有的约束,一一比较attribute是否相同,如果没有相同的抛出异常.
