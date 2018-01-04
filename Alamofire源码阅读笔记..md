@@ -1,6 +1,7 @@
 # Alamofire源码阅读笔记.
 
 Alamofire是swift中常用的网络请求框架.
+本篇源码基于
 
 ## request
 
