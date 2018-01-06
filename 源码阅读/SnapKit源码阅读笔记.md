@@ -1,5 +1,14 @@
 # SnapKit 源码阅读笔记
 
+* Basic Information
+* Note
+	* Constraint.swift
+	* ConstraintPriority.swift 
+	* ConstraintInsets.swift
+	* ConstraintAttributes.swift
+	* Targets
+	
+
 ## Basic Information
 
 * Name:SnapKit
@@ -332,3 +341,82 @@
 			}
 
 * Description: OptionSet用法 mark
+
+#### Targets
+
+* Path: /SnapKit-develop/Source/*Targte.swfit
+* Note: 
+
+
+		public protocol ConstraintRelatableTarget {
+		}
+		
+		extension Int: ConstraintRelatableTarget {
+		}
+		
+		extension UInt: ConstraintRelatableTarget {
+		}
+		
+		extension Float: ConstraintRelatableTarget {
+		}
+		
+		extension Double: ConstraintRelatableTarget {
+		}
+		
+		extension CGFloat: ConstraintRelatableTarget {
+		}
+		
+		extension CGSize: ConstraintRelatableTarget {
+		}
+		
+		extension CGPoint: ConstraintRelatableTarget {
+		}
+		
+		extension ConstraintInsets: ConstraintRelatableTarget {
+		}
+		
+		extension ConstraintItem: ConstraintRelatableTarget {
+		}
+		
+		extension ConstraintView: ConstraintRelatableTarget {
+		}
+		
+		@available(iOS 9.0, OSX 10.11, *)
+		extension ConstraintLayoutGuide: ConstraintRelatableTarget {
+		}
+
+* Description: 使用协议扩展接口支持类型.
+
+#### Maker
+
+* Note: 
+
+	`class ConstraintMakerFinalizable`
+
+	`class ConstraintMakerPriortizable: ConstraintMakerFinalizable`  
+
+	`class ConstraintMakerEditable: ConstraintMakerPriortizable`
+	
+
+
+		// multipliedBy() -> ConstraintMakerEditable
+		// offset() -> ConstraintMakerEditable
+		// priority() -> ConstraintMakerPriortizable
+		// labeled() -> ConstraintMakerFinalizable
+		maker.top.equalToSuperview().multipliedBy(0.5).offset(10).priority(.required).labeled("label")
+
+	子类可以调用父类的方法,但是父类不能调用子类的方法.   
+上面的链式语法通过这样的方式显示使用者调用规范.
+
+		maker.top.equalToSuperview().offset(10).priority(.required).labeled("label").multipliedBy(05)
+		// compile error
+
+
+
+
+		
+	
+	
+
+
+
